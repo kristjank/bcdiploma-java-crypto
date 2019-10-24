@@ -224,20 +224,20 @@ public class Transaction {
 
     public HashMap toHashMap() {
         HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("version", this.version);
         map.put("network", this.network);
         map.put("id", this.id);
         map.put("expiration", this.expiration);
-        map.put("amount", this.amount);
-        map.put("fee", this.fee);
+        map.put("amount", String.valueOf(this.amount));
+        map.put("fee", String.valueOf(this.fee));
         map.put("recipientId", this.recipientId);
         map.put("signature", this.signature);
         map.put("senderPublicKey", this.senderPublicKey);
         map.put("type", this.type);
-        map.put("version", this.version);
         if (this.version == 1) {
             map.put("timestamp", this.timestamp);
         } else {
-            map.put("nonce", this.nonce);
+            map.put("nonce", String.valueOf(this.nonce));
             map.put("typeGroup", this.typeGroup);
         }
 
