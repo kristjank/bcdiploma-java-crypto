@@ -62,52 +62,59 @@ public class Deserializer {
     }
 
     private void deserializeTypeSpecific(int assetOffset) {
-        CoreTransactionTypes transactionType = CoreTransactionTypes.values()[transaction.type];
-        switch (transactionType) {
-            case TRANSFER:
-                new Transfer(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case SECOND_SIGNATURE_REGISTRATION:
-                new SecondSignatureRegistration(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case DELEGATE_REGISTRATION:
-                new DelegateRegistration(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case VOTE:
-                new Vote(this.serialized, this.buffer, this.transaction).deserialize(assetOffset);
-                break;
-            case MULTI_SIGNATURE_REGISTRATION:
-                new MultiSignatureRegistration(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case IPFS:
-                new Ipfs(this.serialized, this.buffer, this.transaction).deserialize(assetOffset);
-                break;
-            case MULTI_PAYMENT:
-                new MultiPayment(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case DELEGATE_RESIGNATION:
-                new DelegateResignation(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case HTLC_LOCK:
-                new HtlcLock(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case HTLC_CLAIM:
-                new HtlcClaim(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            case HTLC_REFUND:
-                new HtlcRefund(this.serialized, this.buffer, this.transaction)
-                        .deserialize(assetOffset);
-                break;
-            default:
-                throw new UnsupportedOperationException();
+        if (this.transaction.typeGroup == 1002) {
+            new IssuerRegistration(this.serialized, this.buffer, this.transaction)
+                    .deserialize(assetOffset);
+        } else {
+            CoreTransactionTypes transactionType = CoreTransactionTypes.values()[transaction.type];
+            switch (transactionType) {
+                case TRANSFER:
+                    new Transfer(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case SECOND_SIGNATURE_REGISTRATION:
+                    new SecondSignatureRegistration(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case DELEGATE_REGISTRATION:
+                    new DelegateRegistration(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case VOTE:
+                    new Vote(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case MULTI_SIGNATURE_REGISTRATION:
+                    new MultiSignatureRegistration(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case IPFS:
+                    new Ipfs(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case MULTI_PAYMENT:
+                    new MultiPayment(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case DELEGATE_RESIGNATION:
+                    new DelegateResignation(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case HTLC_LOCK:
+                    new HtlcLock(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case HTLC_CLAIM:
+                    new HtlcClaim(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                case HTLC_REFUND:
+                    new HtlcRefund(this.serialized, this.buffer, this.transaction)
+                            .deserialize(assetOffset);
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
+            }
         }
     }
 

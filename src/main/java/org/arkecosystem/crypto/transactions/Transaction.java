@@ -278,10 +278,20 @@ public class Transaction {
             }
             asset.put("payments", payments);
         }
-
+        if (this.typeGroup == 1002) {
+            HashMap<String, String> issuerAsset = new HashMap<>();
+            issuerAsset.put("address", this.asset.issuerRegistration.address);
+            issuerAsset.put("name", this.asset.issuerRegistration.name);
+            issuerAsset.put("legalReference", this.asset.issuerRegistration.legalReference);
+            issuerAsset.put("intentDeclaration", this.asset.issuerRegistration.intentDeclaration);
+            issuerAsset.put("host", this.asset.issuerRegistration.host);
+            issuerAsset.put("KYBHash", this.asset.issuerRegistration.KYBHash);
+            asset.put("issuerRegistration", issuerAsset);
+        }
         if (!asset.isEmpty()) {
             map.put("asset", asset);
         }
+
         return map;
     }
 

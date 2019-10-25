@@ -82,43 +82,47 @@ public class Serializer {
     }
 
     private void serializeTypeSpecific() {
-        CoreTransactionTypes transactionType = CoreTransactionTypes.values()[transaction.type];
-        switch (transactionType) {
-            case TRANSFER:
-                new Transfer(this.buffer, this.transaction).serialize();
-                break;
-            case SECOND_SIGNATURE_REGISTRATION:
-                new SecondSignatureRegistration(this.buffer, this.transaction).serialize();
-                break;
-            case DELEGATE_REGISTRATION:
-                new DelegateRegistration(this.buffer, this.transaction).serialize();
-                break;
-            case VOTE:
-                new Vote(this.buffer, this.transaction).serialize();
-                break;
-            case MULTI_SIGNATURE_REGISTRATION:
-                new MultiSignatureRegistration(this.buffer, this.transaction).serialize();
-                break;
-            case IPFS:
-                new Ipfs(this.buffer, this.transaction).serialize();
-                break;
-            case MULTI_PAYMENT:
-                new MultiPayment(this.buffer, this.transaction).serialize();
-                break;
-            case DELEGATE_RESIGNATION:
-                new DelegateResignation(this.buffer, this.transaction).serialize();
-                break;
-            case HTLC_LOCK:
-                new HtlcLock(this.buffer, this.transaction).serialize();
-                break;
-            case HTLC_CLAIM:
-                new HtlcClaim(this.buffer, this.transaction).serialize();
-                break;
-            case HTLC_REFUND:
-                new HtlcRefund(this.buffer, this.transaction).serialize();
-                break;
-            default:
-                throw new UnsupportedOperationException();
+        if (this.transaction.typeGroup == 1002) {
+            new IssuerRegistration(this.buffer, this.transaction).serialize();
+        } else {
+            CoreTransactionTypes transactionType = CoreTransactionTypes.values()[transaction.type];
+            switch (transactionType) {
+                case TRANSFER:
+                    new Transfer(this.buffer, this.transaction).serialize();
+                    break;
+                case SECOND_SIGNATURE_REGISTRATION:
+                    new SecondSignatureRegistration(this.buffer, this.transaction).serialize();
+                    break;
+                case DELEGATE_REGISTRATION:
+                    new DelegateRegistration(this.buffer, this.transaction).serialize();
+                    break;
+                case VOTE:
+                    new Vote(this.buffer, this.transaction).serialize();
+                    break;
+                case MULTI_SIGNATURE_REGISTRATION:
+                    new MultiSignatureRegistration(this.buffer, this.transaction).serialize();
+                    break;
+                case IPFS:
+                    new Ipfs(this.buffer, this.transaction).serialize();
+                    break;
+                case MULTI_PAYMENT:
+                    new MultiPayment(this.buffer, this.transaction).serialize();
+                    break;
+                case DELEGATE_RESIGNATION:
+                    new DelegateResignation(this.buffer, this.transaction).serialize();
+                    break;
+                case HTLC_LOCK:
+                    new HtlcLock(this.buffer, this.transaction).serialize();
+                    break;
+                case HTLC_CLAIM:
+                    new HtlcClaim(this.buffer, this.transaction).serialize();
+                    break;
+                case HTLC_REFUND:
+                    new HtlcRefund(this.buffer, this.transaction).serialize();
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
+            }
         }
     }
 

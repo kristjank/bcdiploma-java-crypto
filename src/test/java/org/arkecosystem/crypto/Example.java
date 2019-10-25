@@ -5,19 +5,31 @@ import org.arkecosystem.client.Connection;
 import org.arkecosystem.crypto.configuration.Network;
 import org.arkecosystem.crypto.identities.Address;
 import org.arkecosystem.crypto.networks.Testnet;
+import org.arkecosystem.crypto.transactions.IssuerRegistrationAsset;
 import org.arkecosystem.crypto.transactions.Transaction;
+import org.arkecosystem.crypto.transactions.builder.IssuerRegistration;
 import org.arkecosystem.crypto.transactions.builder.Transfer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Example {
-    public static Transaction CreateDemoTransaction(int amount, String recipientAddress, String passphrase1) {
+    public static Transaction CreateDemoTransferTransaction(int amount, String recipientAddress, String passphrase1, long nonce) {
         Transaction actual = new Transfer()
             .recipient(recipientAddress)
-            .nonce(3)
+            .nonce(nonce)
             .amount(amount)
             .sign(passphrase1)
+            .transaction;
+
+        return actual;
+    }
+
+    public static Transaction CreateDemoIssuerRegistrationTransaction(IssuerRegistrationAsset issuerRegistrationAsset, String passphrase, long nonce){
+        Transaction actual = new IssuerRegistration()
+            .issuerRegistration(issuerRegistrationAsset)
+            .nonce(nonce)
+            .sign(passphrase)
             .transaction;
 
         return actual;
@@ -32,18 +44,25 @@ public class Example {
 
         Connection connection2 = new Connection(map);
 
-        // testing blocks endpoint // find block with height 545774
-        // LinkedTreeMap<String, Object> actual = connection2.api().peers.all();
-        // System.out.println(actual);
-
         // adding transaction to payload, payload is an array of transactions
         ArrayList<HashMap> payload = new ArrayList<>();
-        Transaction transfer1 = CreateDemoTransaction(100, Address.fromPassphrase("clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire"), "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire");
-        payload.add(transfer1.toHashMap());
-        System.out.println(transfer1.toJson());
+//        Transaction transfer1 = CreateDemoTransferTransaction(100, Address.fromPassphrase("clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire"), "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire",5);
+//        payload.add(transfer1.toHashMap());
+//        System.out.println(transfer1.toJson());
 
-
-
+        Transaction issuer = CreateDemoIssuerRegistrationTransaction(
+            new IssuerRegistrationAsset(
+                "To be further explained",
+                "To be further explained",
+                "To be further explained",
+                "To be further explained",
+                "To be further explained",
+                "To be further explained"),
+            "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire",
+            5
+        );
+        payload.add(issuer.toHashMap());
+        System.out.println(issuer.toJson());
 
         // posting transactions to the connected node as specified in the connection above
         LinkedTreeMap<String, Object> postResponse = connection2.api().transactions.create(payload);

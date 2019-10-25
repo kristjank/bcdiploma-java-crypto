@@ -14,6 +14,8 @@ public class TransactionAsset {
     public HtlcClaimAsset htlcClaimAsset = new HtlcClaimAsset();
     public HtlcRefundAsset htlcRefundAsset = new HtlcRefundAsset();
 
+    public IssuerRegistrationAsset issuerRegistration = new IssuerRegistrationAsset();
+
     public class Signature {
         public String publicKey;
     }
