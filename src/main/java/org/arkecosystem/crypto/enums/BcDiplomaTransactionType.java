@@ -1,15 +1,11 @@
 package org.arkecosystem.crypto.enums;
 
-public enum TransactionTypeGroup {
-    TEST(0),
-    CORE(1),
-    BC_DIPLOMA_TYPE_GROUP(1002),
-
-    RESERVED(1000);
+public enum  BcDiplomaTransactionType {
+    ISSUER_REGISTRATION(0);
 
     private final int value;
 
-    TransactionTypeGroup(int value) {
+    BcDiplomaTransactionType(int value) {
         this.value = value;
     }
 

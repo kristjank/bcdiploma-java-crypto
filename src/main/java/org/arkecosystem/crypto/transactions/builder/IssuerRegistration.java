@@ -1,12 +1,14 @@
 package org.arkecosystem.crypto.transactions.builder;
 
+import org.arkecosystem.crypto.enums.BcDiplomaTransactionType;
+import org.arkecosystem.crypto.enums.TransactionTypeGroup;
 import org.arkecosystem.crypto.transactions.IssuerRegistrationAsset;
 
 public class IssuerRegistration extends AbstractTransaction<IssuerRegistration> {
 
     public IssuerRegistration() {
         super();
-        this.typeGroup(1002);
+        this.typeGroup(TransactionTypeGroup.BC_DIPLOMA_TYPE_GROUP.getValue());
         this.fee(1000000);
     }
 
@@ -17,7 +19,7 @@ public class IssuerRegistration extends AbstractTransaction<IssuerRegistration> 
 
     @Override
     public int getType() {
-        return 0;
+        return BcDiplomaTransactionType.ISSUER_REGISTRATION.getValue();
     }
 
     @Override
