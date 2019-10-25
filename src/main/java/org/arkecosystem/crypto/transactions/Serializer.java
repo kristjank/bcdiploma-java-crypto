@@ -5,6 +5,7 @@ import java.nio.ByteOrder;
 import org.arkecosystem.crypto.configuration.Network;
 import org.arkecosystem.crypto.encoding.Hex;
 import org.arkecosystem.crypto.enums.CoreTransactionTypes;
+import org.arkecosystem.crypto.enums.TransactionTypeGroup;
 import org.arkecosystem.crypto.transactions.serializers.*;
 
 public class Serializer {
@@ -82,7 +83,7 @@ public class Serializer {
     }
 
     private void serializeTypeSpecific() {
-        if (this.transaction.typeGroup == 1002) {
+        if (this.transaction.typeGroup == TransactionTypeGroup.BC_DIPLOMA.getValue()) {
             new IssuerRegistration(this.buffer, this.transaction).serialize();
         } else {
             CoreTransactionTypes transactionType = CoreTransactionTypes.values()[transaction.type];

@@ -10,6 +10,7 @@ import java.util.List;
 import org.arkecosystem.crypto.encoding.Base58;
 import org.arkecosystem.crypto.encoding.Hex;
 import org.arkecosystem.crypto.enums.CoreTransactionTypes;
+import org.arkecosystem.crypto.enums.TransactionTypeGroup;
 import org.arkecosystem.crypto.identities.PrivateKey;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -278,7 +279,7 @@ public class Transaction {
             }
             asset.put("payments", payments);
         }
-        if (this.typeGroup == 1002) {
+        if (this.typeGroup == TransactionTypeGroup.BC_DIPLOMA.getValue()) {
             HashMap<String, String> issuerAsset = new HashMap<>();
             issuerAsset.put("address", this.asset.issuerRegistration.address);
             issuerAsset.put("name", this.asset.issuerRegistration.name);

@@ -1,11 +1,11 @@
 package org.arkecosystem.crypto.enums;
 
-public enum  BcDiplomaTransactionType {
+public enum BcDiplomaTransactionTypes {
     ISSUER_REGISTRATION(0);
 
     private final int value;
 
-    BcDiplomaTransactionType(int value) {
+    BcDiplomaTransactionTypes(int value) {
         this.value = value;
     }
 

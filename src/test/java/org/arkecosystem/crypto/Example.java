@@ -35,6 +35,13 @@ public class Example {
         return actual;
     }
 
+    public static long getNonce(Connection connection, String sended) throws IOException {
+        // wait to be forged
+        LinkedTreeMap<String, Object> actual = connection.api().wallets.sentTransactions(sended);
+        ArrayList<Object> data = (ArrayList<Object>) actual.get("data");
+        return data.size() + 1;
+    }
+
     public static void main(String[] args) throws IOException {
         Network.set(new Testnet());
         HashMap<String, Object> map = new HashMap<>();
@@ -42,7 +49,7 @@ public class Example {
 //        map.put("host", "https://dexplorer.ark.io:8443/api/");
         map.put("content-type","application/json");
 
-        Connection connection2 = new Connection(map);
+        Connection connection = new Connection(map);
 
         // adding transaction to payload, payload is an array of transactions
         ArrayList<HashMap> payload = new ArrayList<>();
@@ -50,6 +57,8 @@ public class Example {
 //        payload.add(transfer1.toHashMap());
 //        System.out.println(transfer1.toJson());
 
+        System.out.println(Address.fromPassphrase("clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire"));
+        getNonce(connection,"ANBkoGqWeTSiaEVgVzSKZd3jS7UWzv9PSo");
         Transaction issuer = CreateDemoIssuerRegistrationTransaction(
             new IssuerRegistrationAsset(
                 "To be further explained",
@@ -59,17 +68,15 @@ public class Example {
                 "To be further explained",
                 "To be further explained"),
             "clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire",
-            5
+            getNonce(connection, "ANBkoGqWeTSiaEVgVzSKZd3jS7UWzv9PSo")
         );
         payload.add(issuer.toHashMap());
         System.out.println(issuer.toJson());
 
         // posting transactions to the connected node as specified in the connection above
-        LinkedTreeMap<String, Object> postResponse = connection2.api().transactions.create(payload);
+        LinkedTreeMap<String, Object> postResponse = connection.api().transactions.create(payload);
 
         payload.clear();
         System.out.println(postResponse);
-
-
     }
 }

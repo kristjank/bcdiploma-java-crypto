@@ -62,7 +62,7 @@ public class Deserializer {
     }
 
     private void deserializeTypeSpecific(int assetOffset) {
-        if (this.transaction.typeGroup == 1002) {
+        if (this.transaction.typeGroup == TransactionTypeGroup.BC_DIPLOMA.getValue()) {
             new IssuerRegistration(this.serialized, this.buffer, this.transaction)
                     .deserialize(assetOffset);
         } else {
