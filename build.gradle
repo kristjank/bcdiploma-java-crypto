@@ -115,7 +115,7 @@ dependencies {
     compile group: 'org.arkecosystem', name: 'client', version: '0.1.4'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
