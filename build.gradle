@@ -112,7 +112,7 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
     compile 'com.google.guava:guava:28.0-jre'
 
-    compile group: 'org.arkecosystem', name: 'client', version: '0.1.4'
+    compile group: 'org.arkecosystem', name: 'client', version: '1.2.9'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
