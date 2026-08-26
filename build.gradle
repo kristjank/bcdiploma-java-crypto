@@ -134,7 +134,7 @@ jacocoTestReport {
 }
 
 wrapper {
-    gradleVersion = '5.6.2'
+    gradleVersion = '5.6.4'
 }
 
 spotless {
